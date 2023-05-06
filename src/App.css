@@ -1,38 +1,85 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  color: rgb(255, 255, 255);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.col{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-around;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.Navcontainer{
+  background-color: #282c34;
   color: white;
+  height: 10vh;
+  width: 100vw;
 }
 
-.App-link {
-  color: #61dafb;
+.Contentcontainer{
+  background-color: #282c34;
+  color: white;
+  height: 80vh;
+  width: 100vw;
+  box-shadow: 0px 0px 10px 0px rgba(199, 194, 194, 0.75);
+  overflow: scroll;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Basecontainer{
+  background-color: #282c34;
+  color: white;
+  height: 10vh;
+  width: 100vw;
+  box-shadow: 0px 0px 10px 0px rgba(199, 194, 194, 0.75);
 }
+
+.element{
+  margin: 10px;
+  padding: 5px;
+  width: 250px;
+  border-radius: 10px;
+  background-color: #170e0e;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+}
+
+
+.alignment{
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+
+img{
+  width: 55Px;
+  height: 55px;
+}
+
+.Addalarm{
+  background-color: #282c34;
+  color: rgb(129, 54, 54);
+  box-shadow: 0px 0px 10px 0px rgba(199, 194, 194, 0.75);
+}
+
+/*------------------------ defined field css ---------------------*/
+
+#alarmtime{
+  width: 100%;
+  height: 5vh;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #282c34;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+/*------------------------ defined field css ---------------------*/

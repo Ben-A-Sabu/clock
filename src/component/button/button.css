@@ -1,0 +1,11 @@
+.btn{
+    height: clamp(3rem, 5vh, 3rem);
+    width: clamp(7rem, 10vw, 15rem);
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: #282c34;
+    color: white;
+    transition: 0.5s;
+}

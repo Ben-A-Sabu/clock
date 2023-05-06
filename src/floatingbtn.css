@@ -1,0 +1,16 @@
+.FloatingBtn{
+    position: fixed;
+    height: 30px;
+    width: 30px;
+    bottom: 80px;
+    right: 10px;
+    background-color: #f44336;
+    color: white;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    font-size: 20px;
+    box-shadow: 10px 10px 10px 0px rgba(13, 9, 9, 0.75);
+    transition: 0.3s;
+}
