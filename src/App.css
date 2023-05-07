@@ -45,7 +45,7 @@
   padding: 5px;
   width: 250px;
   border-radius: 10px;
-  background-color: #170e0e;
+  background-color: #111216;
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
 }
 
@@ -53,12 +53,19 @@
 .alignment{
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content:center;  
+
 }
 
 img{
   width: 55Px;
   height: 55px;
+}
+.smallimg{
+  width: 25Px;
+  height: 25px;
+  border-radius: 50px;
+  background-color: aliceblue;
 }
 
 .Addalarm{
@@ -66,6 +73,7 @@ img{
   color: rgb(129, 54, 54);
   box-shadow: 0px 0px 10px 0px rgba(199, 194, 194, 0.75);
 }
+
 
 /*------------------------ defined field css ---------------------*/
 

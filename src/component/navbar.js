@@ -6,7 +6,7 @@ export default function Navbar(props) {
       {props.children}
       <Header className="row">
         <h1>Alarm</h1>
-        <div>:</div>
+        <div></div>
       </Header>   
     </div>
   );
