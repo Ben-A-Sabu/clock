@@ -262,7 +262,7 @@ function App() {
      ))}
       </Content>
       <Floatingbtn className="FloatingBtn alignment" onClick={handleClick} id="AddAlarm">
-          +
+        +
       </Floatingbtn>
       <Base>
       </Base>
