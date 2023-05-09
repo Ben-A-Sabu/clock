@@ -17,23 +17,27 @@ import Calendar from 'react-calendar';
 import './calender.css';
 
 function App() {
+  //const [activeComponent, setActiveComponent] = useState('clock');
+
   const [showPopup, setShowPopup] = useState(false);
-  const [alarms, setAlarms] = useState(
-    JSON.parse(localStorage.getItem("alarms")) || []
-  );
+  const [alarms, setAlarms] = useState(JSON.parse(localStorage.getItem("alarms")) || []);
   const [dropdown, setDropdown] = useState(false);
   const [pausedate, setPausedate] = useState(false);
-  const [alarmday,setAlarmday]=useState([]);
-  const [Vibrate,setVibrate]=useState(false);
   const[Ringtone,setRingtone]=useState();
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const [AlarmId, setAlarmId] = useState(JSON.parse(localStorage.getItem("AlarmId")) || 0);
+  const[editAlarm,setEditAlarm]=useState();
+  const[label,setLabel]=useState("");
 
 
+ function  handleAlarmId(){
+    localStorage.setItem("AlarmId", JSON.stringify(AlarmId+1));
+    setAlarmId(AlarmId+1);
+  }
+  
 
   function ringAlarm() {
     const alarms = JSON.parse(localStorage.getItem("alarms")) || [];
-  
-    console.log("ring alarms");
-  
     const now = new Date();
     for (let i = 0; i < alarms.length; i++) {
       const alarm = alarms[i];
@@ -44,14 +48,27 @@ function App() {
       const alarmTime = new Date();
       alarmTime.setHours(hours, minutes, 0, 0);
   
-      console.log(alarmTime.getHours());
-      console.log(now.getHours());
-  
       // Check if the current time matches the alarm time
-      if (now.getHours() === alarmTime.getHours() && now.getMinutes() === alarmTime.getMinutes()) {
+      if (now.getHours() === alarmTime.getHours() && now.getMinutes() === alarmTime.getMinutes() &&  (alarm.AlarmActive===1) ) {
         // Create a new Audio object and set the source to the alarm sound file
-        const audio = new Audio(alarm.AlarmRingtone);
-        audio.play(); // Play the audio
+        // if AlarmDay is not empty then check whether the current day is present in the AlarmDay array
+        if(alarm.AlarmDays.length!==0){
+          if(alarm.AlarmDays.includes(now.getDay())){
+             const audio = new Audio(alarm.AlarmRingtone);
+             audio.play();
+           } // Play the audio
+          }
+           else{
+            const audio = new Audio(alarm.AlarmRingtone);
+            audio.play();
+           }
+
+          // check whether AlarmDays is empty or not , if empty then set AlarmActive to 0 else set AlarmActive to 1
+          if(alarm.AlarmDays.length===0){
+            updateProperty("AlarmActive", 0, i);
+          }
+
+
         break; // If you want to ring only one alarm at a time
       }
     }
@@ -67,7 +84,7 @@ function App() {
 
     // Clear interval on unmount
     return () => clearInterval(intervalId);
-  }, []);
+  },);
 
 
   const handleRingtone=(index)=>{
@@ -85,38 +102,44 @@ function App() {
         reader.readAsDataURL(input.files[0]);
       };
       input.click();
+
+      console.log(Ringtone);
     
     updateProperty("AlarmRingtone",Ringtone,index)
   }
 
 
   const handleDelete=(index)=>{
-
     // remove the alarm from the array
     var alarmArray = JSON.parse(localStorage.getItem("alarms")) || [];
     setAlarms(prevAlarms => prevAlarms.filter((alarmArray, i) => i !== index));
     localStorage.setItem("alarms", JSON.stringify(alarmArray.filter((alarmArray, i) => i !== index)));
+    setDropdown(false);
 
   }
+
+  const handleAlarmPaused = (index,value) => {
+    const newPauseAlarm = parseInt(value);
+    updateProperty("AlarmActive", newPauseAlarm, index);
+  };
   
   function alarmdayclick(value, index) {
     // if the value is already present, remove from array
-    if (alarmday.includes(value)) {
-      console.log("found");
-      updateProperty("AlarmDays", alarmday.filter((item) => item !== value), index);
-    } else {
-      setAlarmday((prevAlarmday) => [...prevAlarmday, value]);
-      updateProperty("AlarmDays", [...alarmday, value], index);
+   if(alarms[index].AlarmDays.includes(value)){
+    updateProperty("AlarmDays", alarms[index].AlarmDays.filter((day) => day !== value), index);
+   }
+    else{
+      // if the value is not present, add to array
+      updateProperty("AlarmDays", [...alarms[index].AlarmDays, value], index);
     }
+
   }
-  
+
+   
   function handleVibrate(index,event){
     const checkboxValue = event.target.checked;
-    setVibrate(checkboxValue);
-    updateProperty("AlarmVibrate", Vibrate, index);
-  }
-  
-  console.log(new Date().getDay());   
+    updateProperty("AlarmVibrate", checkboxValue, index);
+  } 
   
   function handleClick() {
     setShowPopup(true);
@@ -127,51 +150,70 @@ function App() {
   }
   
   function updateProperty(property, value, index) {
-    setAlarms(prevAlarms =>
-      prevAlarms.map((alarm, i) => {
+    setAlarms(prevAlarms => {
+      const newAlarms = prevAlarms.map((alarm, i) => {
         if (i === index) {
-          return {
-            ...alarm,
-            [property]: value,
-          };
+          return {  ...alarm,[property]: value,};
         }
         return alarm;
-      })
-    );
-    localStorage.setItem("alarms", JSON.stringify(alarms));
+      });
+      localStorage.setItem("alarms", JSON.stringify(newAlarms));
+      return newAlarms;
+    });
   }
+  
   
   console.log(alarms);
   
   function handleSave() {
     const alarmTime = document.getElementById("alarmtime").value;
     const alarmArray = JSON.parse(localStorage.getItem("alarms")) || [];
+    if(alarmTime===""){
+      alert("Please select the time");
+      return;
+    }
+    handleAlarmId();
   
     setAlarms(prevAlarms => [
       ...prevAlarms,
-      {
+      { AlarmId: AlarmId,
         AlarmTime: alarmTime,
         AlarmDays: [],
-        AlarmPaused: "",
+        AlarmActive: 1,
         AlarmRingtone: "Audio/mixkit-alarm-digital-clock-beep-989.wav",
         AlarmVibrate: "",
         AlarmPauseStart: "",
         AlarmPauseEnd: "",
+        AlarmDate:new Date().toLocaleString(),
+        AlarmLabel:"",
       },
     ]);
   
     alarmArray.push({
+      AlarmId: AlarmId,
       AlarmTime: alarmTime,
       AlarmDays: [],
-      AlarmPaused: "",
+      AlarmActive: 1,
       AlarmRingtone: "Audio/mixkit-alarm-digital-clock-beep-989.wav",
       AlarmVibrate: "",
       AlarmPauseStart: "",
       AlarmPauseEnd: "",
+      AlarmDate:new Date().toDateString(),
+      AlarmLabel:"",
     });
   
     localStorage.setItem("alarms", JSON.stringify(alarmArray));
     setShowPopup(false);
+  }
+
+  function Updatealarm(index){
+    updateProperty("AlarmTime", document.getElementById("Edittime").value, index)
+    handleEditAlarm();
+  }
+
+  function UpdateLabel(index){
+    updateProperty("AlarmLabel", document.getElementById("AlarmLabel").value, index)
+    handlelabel();
   }
   
   
@@ -183,30 +225,76 @@ function App() {
     setPausedate(index === pausedate ? null : index);// if dropdown is true then set it to null else set it to index
   }
   
+  function handleEditAlarm(index){
+    setEditAlarm(index === editAlarm ? null : index);
+  }
+
+  function handlelabel(index){
+    setLabel(index === label ? null : index);
+  }
+
+
+
   return (
     <div className="App">
       <Navbar/>
       <Content id="Maincontent">
       {alarms.map((state, index) => (
-  <div key={index} className="element col">
+    <div key={index} className="element col">
     <Header className="ElementHeader alignment ">
-      <div className="label">Alarm {index+1}</div>
+      <div className="label">{state.AlarmLabel}</div>
       <div className="alignment dropdownbtn" onClick={() => handleDropdown(index)} >
         {dropdown === index ? 'v' : '^'} {/* if dropdown is true then show v else show ^*/}
       </div>
+
+           { label===index &&(
+        <Popup >
+        {/* Add the content for popup here */}
+        <Header className="PopupHeader alignment" >
+          <div>Edit Label</div>
+        </Header>
+        <Body className="PopupBody alignment">
+        <input type="Text"className="TimeInput" id="AlarmLabel" name="appt" defaultValue={state.AlarmLabel}/>
+        </Body>
+        <Footer className="PopupFooter row">
+        <Button className="btn alignment" onClick={() =>UpdateLabel(index)}>Save</Button>
+        <Button className="btn alignment" onClick={()=>handlelabel(index)} >Cancel</Button>
+        </Footer>
+      </Popup>
+            )}
+
     </Header>
     <Body className="ElementBody">
-      <div className="row">
+      <div className="row" onClick={()=>handleEditAlarm(index)}>
         {state.AlarmTime}
-      </div>
+     </div>
+
+     {    editAlarm===index &&(
+          <Popup >
+          {/* Add the content for popup here */}
+          <Header className="PopupHeader alignment" >
+            <div>Select Time</div>
+          </Header>
+          <Body className="PopupBody alignment">
+          <input type="time" id="Edittime" className="TimeInput" name="appt" min="00:00" max="24:00"  defaultValue={state.AlarmTime}></input>
+          </Body>
+          <Footer className="PopupFooter row">
+          <Button className="btn alignment" onClick={() =>Updatealarm(index)}>Save</Button>
+          <Button className="btn alignment" onClick={()=>handleEditAlarm()} >Cancel</Button>
+          </Footer>
+        </Popup>
+        )}
+
     </Body>
     <Footer className="ElementFooter col">
+    <div className="alignment">
+          <div className="daylabel alarmFeature">{state.AlarmDays.map((day) => weekdays[day]).join(", ")}</div>
+          <input type="range" min="0" max="1" step={1} defaultValue={state.AlarmActive} className="On_Off alarmFeature" onChange={(event) => handleAlarmPaused(index, event.target.value)}/>
+      </div>
+     
+
       {dropdown === index && (
         <Body className="features col">
-          <div className="alignment">
-          <div className="daylabel alarmFeature">Every day</div>
-          <input type="range" min="0" max="10"  step={10} className="On_Off alarmFeature" id="myRange"/>
-          </div>
           <div className="alignment days" >
             <div className="day"   onClick={()=>alarmdayclick(0,index)}>S</div>
             <div className="day"  onClick={()=>alarmdayclick(1,index)}>M</div>
@@ -215,6 +303,10 @@ function App() {
             <div className="day" onClick={()=>alarmdayclick(4,index)}>T</div>
             <div className="day"  onClick={()=>alarmdayclick(5,index)}>F</div>
             <div className="day"  onClick={()=>alarmdayclick(6,index)}>S</div>
+          </div>
+          <div className="alignment">
+            <div className="alarmFeature">Label</div>
+            <img src="images/label_icon.png" className="smallimg" alt="logo"  onClick={()=> handlelabel(index)}></img>
           </div>
           <div className="alignment">
             <div className="alarmFeature">Pause Alarm</div>
@@ -273,7 +365,7 @@ function App() {
             <div>Select Time</div>
           </Header>
           <Body className="PopupBody alignment">
-            <input type="time" id="alarmtime" name="appt" min="00:00" max="24:00" required></input>
+            <input type="time" id="alarmtime" className="TimeInput" name="appt" min="00:00" max="24:00" required></input>
           </Body>
           <Footer className="PopupFooter row">
              <Button className="btn alignment" onClick={handleSave}>Save</Button>
@@ -281,9 +373,7 @@ function App() {
           </Footer>
         </Popup>
       )}
-
-     
-     
+  
     </div>
   );
 }

@@ -1,40 +1,7 @@
 import Footer from "./footer/footer";
-///import { useState } from "react";
+
 
 export default function Base(props) {
-
- /*  const [alarm,setAlarm]=useState(false);
-    const [clock,setClock]=useState(false);
-    const [stopwatch,setStopwatch]=useState(false);
-    const [timer,setTimer]=useState(false);
-
-    const alarmClick=()=>{
-        setAlarm(true);
-        setClock(false);
-        setStopwatch(false);
-        setTimer(false);
-    }
-    const clockClick=()=>{
-        setAlarm(false);
-        setClock(true);
-        setStopwatch(false);
-        setTimer(false);
-    }
-    const stopwatchClick=()=>{
-        setAlarm(false);
-        setClock(false);
-        setStopwatch(true);
-        setTimer(false);
-    }
-    const timerClick=()=>{
-        setAlarm(false);
-        setClock(false);
-        setStopwatch(false);
-        setTimer(true);
-    }
-    */
-
-
 
     return(
         <div className="Basecontainer">
