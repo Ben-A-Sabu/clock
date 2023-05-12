@@ -28,7 +28,7 @@
   color: white;
   height: 80vh;
   width: 100vw;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .Basecontainer{
@@ -88,5 +88,10 @@ img{
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
+
+.hide{
+  display: none;
+}
+
 
 /*------------------------ defined field css ---------------------*/
