@@ -13,9 +13,7 @@ import './component/button/button.css';
 import Calendar from 'react-calendar';
 import './calender.css'
 
-
 function Alarm() {
-
   const [showPopup, setShowPopup] = useState(false);
   const [alarms, setAlarms] = useState(JSON.parse(localStorage.getItem("alarms")) || []);
   const [dropdown, setDropdown] = useState(false);
@@ -75,9 +73,15 @@ function Alarm() {
           const scheduleStartDate = new Date(alarm.ScheduleStart);
           const scheduleEndDate = new Date(alarm.ScheduleEnd);
           if (now >= scheduleStartDate && now <= scheduleEndDate) {
-            console.log("Alarm scheduled.");
+
+            handleAlarmPopup(i);        // Create a new Audio object and set the source to the alarm sound file
+            const audio = new Audio(alarm.AlarmRingtone);
+             audio.loop = true; // Set the loop property to true to make the audio repeat continuously
+             audio.play(); // Start playing the audio
+             setAlarmAudio(audio);
+         
           } else {
-            console.log("Alarm not scheduled.");
+            
             // Set the alarm to inactive if it's not within the scheduled range
             updateProperty("AlarmActive", 0, i);
             updateProperty("Schedule", false, i);
@@ -88,7 +92,6 @@ function Alarm() {
         }
         // Check if the alarm is set to ring on the current day
         if (alarm.AlarmDays.length !== 0 && !alarm.AlarmDays.includes(now.getDay())) {
-          console.log("Alarm not set for today.");
           continue; // Skip this alarm and move on to the next one
         }
             
@@ -105,14 +108,11 @@ function Alarm() {
   }
   
 
-
-
   function ManageAlarmPaused(index, value, event) {  // to snooze and stop the alarm
     // Stop the alarm if the slider value is positive
     var id=alarms[index].AlarmId;
  
     if (value === "1") {
-      console.log(AlarmAudio)
       const audio = AlarmAudio;
       audio.pause();
       setAlarmAudio(null); // Remove the audio element
@@ -170,8 +170,6 @@ function Alarm() {
       };
       input.click();
 
-      console.log(Ringtone);
-    
     updateProperty("AlarmRingtone",Ringtone,index)
   }
 
@@ -242,8 +240,6 @@ function Alarm() {
     });
   }
   
-  
-  console.log(alarms);
   
   function handleSave() {
     const alarmTime = document.getElementById("alarmtime").value;
