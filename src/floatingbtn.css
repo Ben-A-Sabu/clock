@@ -1,25 +1,24 @@
 .FloatingBtn{
-    position: fixed;
     height: 50px;
     width: 50px;
+    position: fixed;
     bottom: 10%;
     left: 50%;
-    transform: translateX(-45%);
-    background-color: #3c7dbe;
-    color: rgb(0, 0, 0);
     padding: 16px;
     border: none;
     cursor: pointer;
     border-radius: 50px;
     font-size: 50px;
+    color: rgb(0, 0, 0);
+    background-color: #3c7dbe;
     box-shadow: 10px 10px 10px 0px rgba(13, 9, 9, 0.75);
+    transform: translateX(-45%);
     transition: 0.3s;
-    z-index: 3;
 }
 
 .FloatingBtn:hover{
-    background-color: #2c83ca;
     color: white;
+    background-color: #2c83ca;
     box-shadow: 0px 0px 10px 0px rgba(13, 9, 9, 0.75);
     transform: scale(1.1);
     transform: translateX(-45%);

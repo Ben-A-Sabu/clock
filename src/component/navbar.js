@@ -2,10 +2,8 @@ import Header from "./header/header";
 
 export default function Navbar(props) {
   return (
-    <div className="Navcontainer">
-      <Header className="row">
+      <Header className="Navcontainer row" id={props.id}>
       {props.children}
       </Header>   
-    </div>
   );
 }

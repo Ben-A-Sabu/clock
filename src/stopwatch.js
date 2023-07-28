@@ -4,7 +4,6 @@ import "./App.css";
 import "./element.css";
 import "./floatingbtn.css";
 import "./component/popup/popup.css";
-import Content from "./component/content";
 import Footer from "./component/footer/footer";
 import Floatingbtn from "./component/floatingbtn";
 import "./component/button/button.css";
@@ -62,8 +61,8 @@ function Stopwatch() {
 
   return (
     <>
-      <Content id="StopwatchContent">
-        <div className="warp alignment">
+     
+        <div className="warp alignment ">
           <div id="TimerDisplay" className="alignment">
             {formatTime(time)}
           </div>
@@ -83,7 +82,6 @@ function Stopwatch() {
             </div>
           </div>
         )}
-      </Content>
       <Footer >
       <Floatingbtn className="FloatingBtn alignment" id="Start" onClick={(event)=>handleStart(event)}><img src="images/play.png"  className="row smallimg" alt="play"/></Floatingbtn>
       {isRunning ===true &&(

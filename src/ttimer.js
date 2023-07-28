@@ -3,7 +3,6 @@ import './App.css';
 import'./element.css';
 import'./floatingbtn.css';
 import './component/popup/popup.css';
-import Content from './component/content';
 import Header from './component/header/header';
 import Body from './component/body/body';
 import Footer from './component/footer/footer';
@@ -11,7 +10,7 @@ import Floatingbtn from './component/floatingbtn';
 import Popup from './component/popup/popup';
 import Button from "./component/button/button";
 import './component/button/button.css';
-import './calender.css';
+import './timer.css';
 
 function Ttimer() {
 
@@ -69,6 +68,7 @@ function handleSave() {
     { time: Time,
       timeron: false,
       initialTime: Time, // set initialTime to the initial value of the timer
+      label: formatTime(Time)+" Timer",
     },
   ]);
 
@@ -86,19 +86,32 @@ const handleDelete=(index)=>{
   
   console.log(timer);
 
- const formatTime = (time) => {
+  const formatTime = (time) => {
     const hours = Math.floor(time / 360000);
-    const hourbal=Math.floor(time%360000);
+    const hourbal = Math.floor(time % 360000);
     const minutes = Math.floor(hourbal / 6000);
-    const minutebal=Math.floor(hourbal%6000);
+    const minutebal = Math.floor(hourbal % 6000);
     const seconds = Math.floor((minutebal / 100) % 60);
-    return (
-      (hours < 10 ? "0" + hours : hours) +"h"+
-      ":" +
-      (minutes < 10 ? "0" + minutes : minutes) +"m"+
-      ":" +
-      (seconds < 10 ? "0" + seconds : seconds)+"s" 
-    )};
+  
+    if (hours > 0) {
+      return (
+        (hours < 10 ? "0" + hours : hours) + "h" +
+        ":" +
+        (minutes < 10 ? "0" + minutes : minutes) + "m" +
+        ":" +
+        (seconds < 10 ? "0" + seconds : seconds) + "s"
+      );
+    } else if (minutes > 0) {
+      return (
+        (minutes < 10 ? "0" + minutes : minutes) + "m" +
+        ":" +
+        (seconds < 10 ? "0" + seconds : seconds) + "s"
+      );
+    } else {
+      return (seconds + "s");
+    }
+  };
+  
   
  
   function startTimer(index) {
@@ -154,13 +167,22 @@ const handleDelete=(index)=>{
     setLabel(index === label ? null : index);
   }
 
+  function saveLabel(index){
+    const timerElement = timer[index];
+    const labelValue = document.getElementById("label-input").value;
+    timerElement.label=labelValue;
+    updateProperty("label",labelValue,index);
+    setLabel(false);
+  }
+
+
   return (
     <>
-      <Content id="Maincontent">
+     
         {timer.map((state, index) => (
       <div key={index} className="element col">
       <Header className="ElementHeader alignment ">
-        <div className="label">{formatTime(state.initialTime)} Timer</div>
+        <div className="label">{state.label}</div>
         <div className="alignment dropdownbtn" onClick={() => handleDropdown(index)} >
           {dropdown === index ? 'v' : '^'} {/* if dropdown is true then show v else show ^*/}
         </div>
@@ -168,35 +190,41 @@ const handleDelete=(index)=>{
       <Body className="ElementBody">
         <div className="row">{formatTime(state.time)}</div>
       </Body>
-      <Footer className="ElementFooter row">
+      <Footer className="ElementFooter">
+        <div className="row">  
          <Button className="btn alignment" onClick={()=>AddOneMin(index)}  >+1:00</Button>
          {timer[index].timeron === false &&(<Button className="btn alignment"  ><img src="images/play.png" alt="play" className="smallimg" onClick={()=>startTimer(index)} /></Button>)}
          {timer[index].timeron  === true && ( <Button className="btn alignment"  ><img src="images/pause.png" alt="pause" className="smallimg" onClick={()=>stopTimer(index)} /></Button>)}
          { (timer[index].timeron === false && timer[index].time < timer[index].initialTime) && (<Button  id="Reset" onClick={()=>resetTimer(index)}><img src="images/reset.png" className="smallimg" alt="reset"/></Button>)}
 
-            
+         </div>   
          {dropdown === index && (
-          <Body className="features col">
-            <div className="alignment">
+          <div className="row">
+            <div className="col">
+            <img src="images/label_icon.png" className="smallimg" alt="logo"  onClick={()=> handlelabel(index)}></img>
               <div className="alarmFeature">Label</div>
-              <img src="images/label_icon.png" className="smallimg" alt="logo"  onClick={()=> handlelabel(index)}></img>
             </div>
-            <div className="alignment">
-              <div className="alarmFeature">Delete</div>
+            <div className="col">
               <img src="images/del-icon.webp" className="smallimg  Delete" alt="logo"  onClick={()=> handleDelete(index)}></img>
+              <div className="alarmFeature">Delete</div>
             </div>
-          </Body>
+          </div>
         )}
 
-
-
-
-
-
-
-
-
-
+             {label===index && (
+              <Popup>
+                     {/* Add the content for popup here */}
+                 <Header className="PopupHeader alignment" > <div>Set Label</div></Header>
+                 <Body className="PopupBody  col">
+                  <label htmlFor="label-input">Label:</label>
+                  <input type="text" id="label-input" name="label-input" className="TimeInput" placeholder="Label" defaultValue={state.label}/>
+                 </Body>
+                <Footer className="PopupFooter row">
+                   <Button className="btn alignment" onClick={()=>saveLabel(index)}>Set</Button>
+                   <Button className="btn alignment" onClick={(event)=>handlelabel(event)}>Cancel</Button>
+               </Footer>
+             </Popup>
+           )}
 
 
 
@@ -207,7 +235,7 @@ const handleDelete=(index)=>{
         </Footer>
         </div>
       ))}
-        </Content>
+
         <Floatingbtn className="FloatingBtn alignment" onClick={handleClick} >+</Floatingbtn>
         
         {showPopup && (
@@ -232,6 +260,12 @@ const handleDelete=(index)=>{
             </Footer>
           </Popup>
         )}
+
+
+  
+
+
+
     </>
   );
 }

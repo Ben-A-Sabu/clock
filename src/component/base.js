@@ -4,10 +4,8 @@ import Footer from "./footer/footer";
 export default function Base(props) {
 
     return(
-        <div className="Basecontainer">
-              <Footer className="row">
+          <Footer className="Basecontainer row" id={props.id}>
            {props.children}
            </Footer>
-        </div>
     )
 }

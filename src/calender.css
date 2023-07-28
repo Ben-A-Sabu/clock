@@ -99,9 +99,11 @@
   border-radius: 50px;
 }
 
+
+
 .react-calendar__tile:disabled {
   opacity: 0.5;
-  background-color: #363434;
+  background-color: #1d9551;
 }
 
 .react-calendar__tile:enabled:hover,

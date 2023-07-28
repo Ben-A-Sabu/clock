@@ -15,6 +15,7 @@ import './component/button/button.css';
 
 
 
+
 function Clock() {
   const [showPopup, setShowPopup] = useState(false);
   const [clock, setClock] = useState(JSON.parse(localStorage.getItem('WorldClock')) || []);
@@ -87,14 +88,22 @@ function Clock() {
     console.log(clockArray);
   }
 
+  function handleDelete(index) {
+    const clockArray = JSON.parse(localStorage.getItem('WorldClock')) || [];
+    clockArray.splice(index, 1);
+    setClock(clockArray);
+    localStorage.setItem('WorldClock', JSON.stringify(clockArray));
+  }
+
 
   return (
-    <div className="Clock">
+    <>
       {clock.map((clock, index) => (
         <div className="element col" key={index}>
           <Header className="ElementHeader alignment ">
+          <img src="images/del-icon.webp" className="smallimg  Delete" alt="logo"  onClick={()=> handleDelete(index)}></img>
           </Header>
-          <Body className="ElementBody col alignment">
+          <Body className="col ElementBody">
             <div>{clock.CountryName}</div>
             <div>{clock.Time}</div>
           </Body>
@@ -120,7 +129,7 @@ function Clock() {
           </Footer>
         </Popup>
       )}
-    </div>
+    </>
   );
 }
 
