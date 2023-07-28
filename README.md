@@ -1,13 +1,5 @@
-![Screenshot 2023-07-28 102618](https://github.com/Ben-A-Sabu/clock/assets/88230486/7a053fa7-5966-42c2-a229-c7a869a6a46e)
-![Uploading Screenshot 2023-07-28 102606.png…]()
-![Uploading Screenshot 2023-07-28 102544.png…]()
-![Uploading Screenshot 2023-07-28 102537.png…]()
-![Uploading Screenshot 2023-07-28 102527.png…]()
-![Uploading Screenshot 2023-07-28 102456.png…]()
-![Uploading Screenshot 2023-07-28 102440.png…]()
-![Uploading Screenshot 2023-07-28 102427.png…]()
-![Uploading Screenshot 2023-07-28 102414.png…]()
-![Uploading Screenshot 2023-07-28 102338.png…]()
+
+
 # ReactJS Advanced Clock Application
 
 This is an advanced Clock Application, similar to Google Clock, built using ReactJS. This feature-rich application not only displays the current time, but also includes functionalities for alarm setting, timer, and a stopwatch. It's an excellent utility tool and a great project for understanding various concepts in ReactJS.
@@ -70,8 +62,18 @@ If you want to contact me, you can reach me at `<benasabu74@gmail.com>`.
 
 
   
-   
-![Uploading Screenshot 2023-07-28 102327.png…]()
-![Uploading Screenshot 2023-07-28 102319.png…]()
 
 
+
+![Screenshot 2023-07-28 102327](https://github.com/Ben-A-Sabu/clock/assets/88230486/649bc08b-2607-466f-a3a6-3a5d66b5e73a)
+![Screenshot 2023-07-28 102338](https://github.com/Ben-A-Sabu/clock/assets/88230486/4037973c-d4a3-4a78-a5e0-6ad9a8a5256f)
+![Screenshot 2023-07-28 102338](https://github.com/Ben-A-Sabu/clock/assets/88230486/9b813fd0-80fa-4fba-b8d3-8faeb1aada2c)
+![Screenshot 2023-07-28 102414](https://github.com/Ben-A-Sabu/clock/assets/88230486/0e5c2756-715e-4217-a3b7-9d18aed9a61a)
+![Screenshot 2023-07-28 102427](https://github.com/Ben-A-Sabu/clock/assets/88230486/b5505ac3-1be2-40a2-9b57-e7c81c4d6e71)
+![Screenshot 2023-07-28 102440](https://github.com/Ben-A-Sabu/clock/assets/88230486/87196b57-20bb-4522-b2bd-53ddf26ff041)
+![Screenshot 2023-07-28 102456](https://github.com/Ben-A-Sabu/clock/assets/88230486/f6e5b1d8-281e-4d1d-b72e-89ea4a57a813)
+![Screenshot 2023-07-28 102527](https://github.com/Ben-A-Sabu/clock/assets/88230486/3dad3488-5f2c-410e-b990-9934d043519e)
+![Screenshot 2023-07-28 102537](https://github.com/Ben-A-Sabu/clock/assets/88230486/56db42fe-4967-471e-b4c0-fbf836b18b6f)![Sc![Screenshot 2023-07-28 102606](https://github.com/Ben-A-Sabu/clock/assets/88230486/223ea8c9-cf89-4b89-b547-720ddcb1ec71)
+reenshot 2023-07-28 102544](https://github.com/Ben-A-Sabu/clock/assets/88230486/e9a6c3d6-14a4-407e-9783-d182d3c7b075)
+
+![Screenshot 2023-07-28 102618](https://github.com/Ben-A-Sabu/clock/assets/88230486/859dccd5-d715-4d08-b24f-08d1d7681ed3)
