@@ -1,3 +1,13 @@
+![Screenshot 2023-07-28 102618](https://github.com/Ben-A-Sabu/clock/assets/88230486/7a053fa7-5966-42c2-a229-c7a869a6a46e)
+![Uploading Screenshot 2023-07-28 102606.png…]()
+![Uploading Screenshot 2023-07-28 102544.png…]()
+![Uploading Screenshot 2023-07-28 102537.png…]()
+![Uploading Screenshot 2023-07-28 102527.png…]()
+![Uploading Screenshot 2023-07-28 102456.png…]()
+![Uploading Screenshot 2023-07-28 102440.png…]()
+![Uploading Screenshot 2023-07-28 102427.png…]()
+![Uploading Screenshot 2023-07-28 102414.png…]()
+![Uploading Screenshot 2023-07-28 102338.png…]()
 # ReactJS Advanced Clock Application
 
 This is an advanced Clock Application, similar to Google Clock, built using ReactJS. This feature-rich application not only displays the current time, but also includes functionalities for alarm setting, timer, and a stopwatch. It's an excellent utility tool and a great project for understanding various concepts in ReactJS.
@@ -61,10 +71,7 @@ If you want to contact me, you can reach me at `<benasabu74@gmail.com>`.
 
   
    
+![Uploading Screenshot 2023-07-28 102327.png…]()
+![Uploading Screenshot 2023-07-28 102319.png…]()
 
-   
-
-
-
-npm start
 
